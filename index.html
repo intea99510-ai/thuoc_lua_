@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thước Lụa — Tư vấn áo dài &amp; áo cộc tay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --silk: #F7EFE3;
+    --silk-deep: #EFE2CE;
+    --ink: #211B17;
+    --jade: #1E3D32;
+    --jade-soft: #2E5448;
+    --lotus: #C97B68;
+    --lotus-soft: #E3B7A8;
+    --gold: #A9802E;
+    --line: rgba(33,27,23,0.14);
+    --radius: 2px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--silk);
+    color:var(--ink);
+    font-family:'Be Vietnam Pro', sans-serif;
+    min-height:100vh;
+    position:relative;
+  }
+  /* Thước đo viền trang - signature element */
+  body::before{
+    content:"";
+    position:fixed; top:0; left:0; right:0; height:14px;
+    background-image: repeating-linear-gradient(90deg, var(--jade) 0 1px, transparent 1px 24px);
+    opacity:0.35;
+    z-index:50;
+  }
+  .tick-rule{
+    display:flex; align-items:center; gap:2px; height:18px; margin:0 0 28px 0;
+  }
+  .tick-rule span{
+    width:1px; height:8px; background:var(--ink); opacity:0.25; flex-shrink:0;
+  }
+  .tick-rule span:nth-child(5n){height:14px; opacity:0.45;}
+
+  header{
+    padding:48px 6vw 24px;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-size:12px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--jade-soft); font-weight:600; margin-bottom:10px;
+  }
+  h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:clamp(36px, 5vw, 58px);
+    margin:0 0 12px;
+    color:var(--jade);
+    letter-spacing:0.01em;
+  }
+  header p{
+    max-width:560px;
+    font-size:16px; line-height:1.6; color:rgba(33,27,23,0.72);
+    margin:0;
+  }
+
+  main{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap:0;
+    max-width:1280px;
+    margin:0 auto;
+  }
+  @media (max-width: 900px){
+    main{grid-template-columns:1fr;}
+  }
+
+  /* ---- Chat column ---- */
+  .chat-col{
+    padding:40px 6vw 60px 6vw;
+    border-right:1px solid var(--line);
+  }
+  @media (max-width:900px){ .chat-col{border-right:none; border-bottom:1px solid var(--line);} }
+
+  .chat-window{
+    background:#fff;
+    border:1px solid var(--line);
+    min-height:420px;
+    max-height:560px;
+    overflow-y:auto;
+    padding:24px;
+    display:flex; flex-direction:column; gap:16px;
+  }
+  .msg{
+    max-width:82%;
+    padding:13px 16px;
+    line-height:1.55;
+    font-size:14.5px;
+    border-radius:var(--radius);
+    white-space:pre-line;
+  }
+  .msg.bot{
+    background:var(--silk-deep);
+    align-self:flex-start;
+    border-left:2px solid var(--jade);
+  }
+  .msg.user{
+    background:var(--jade);
+    color:var(--silk);
+    align-self:flex-end;
+    border-right:2px solid var(--gold);
+  }
+  .msg.bot .label, .msg.user .label{
+    display:block; font-size:10px; letter-spacing:0.12em; text-transform:uppercase;
+    opacity:0.55; margin-bottom:4px; font-weight:600;
+  }
+  .img-msg{
+    align-self:flex-start; max-width:60%;
+  }
+  .img-msg img{
+    width:100%; display:block; border:1px solid var(--line);
+  }
+
+  .quick-chips{
+    display:flex; flex-wrap:wrap; gap:8px; margin-top:18px;
+  }
+  .chip{
+    border:1px solid var(--jade); color:var(--jade);
+    background:transparent; padding:8px 14px; font-size:13px;
+    border-radius:var(--radius); cursor:pointer; font-family:inherit;
+    transition:all .15s ease;
+  }
+  .chip:hover{background:var(--jade); color:var(--silk);}
+
+  .input-row{
+    margin-top:18px; display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap;
+  }
+  .input-row input[type=text]{
+    flex:1; min-width:200px;
+    border:1px solid var(--line); background:#fff;
+    padding:13px 14px; font-size:14.5px; font-family:inherit;
+    color:var(--ink);
+  }
+  .input-row input[type=text]:focus{outline:none; border-color:var(--jade);}
+  .input-row input[type=text]:disabled{background:var(--silk-deep); opacity:0.7;}
+  .btn{
+    background:var(--jade); color:var(--silk); border:none;
+    padding:13px 22px; font-size:13.5px; letter-spacing:0.04em;
+    cursor:pointer; font-family:inherit; font-weight:600;
+    transition:background .15s ease;
+  }
+  .btn:hover{background:var(--jade-soft);}
+  .btn.secondary{
+    background:transparent; color:var(--jade); border:1px solid var(--jade);
+  }
+  .btn.secondary:hover{background:var(--silk-deep);}
+  .btn:disabled{opacity:0.4; cursor:not-allowed;}
+
+  .upload-row{
+    margin-top:14px; padding-top:14px; border-top:1px dashed var(--line);
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  }
+  .upload-row label{
+    font-size:12.5px; color:rgba(33,27,23,0.6);
+  }
+  .file-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--lotus); color:var(--lotus);
+    padding:9px 16px; font-size:13px; cursor:pointer;
+  }
+  .file-btn:hover{background:var(--lotus); color:#fff;}
+  input[type=file]{display:none;}
+
+  /* ---- Side column: fitting card ---- */
+  .side-col{
+    padding:40px 5vw 60px 5vw;
+    background:var(--silk-deep);
+  }
+  .side-heading{
+    font-family:'Cormorant Garamond', serif;
+    font-size:24px; font-weight:600; color:var(--jade);
+    margin:0 0 4px;
+  }
+  .side-sub{
+    font-size:12.5px; color:rgba(33,27,23,0.55); margin:0 0 24px;
+  }
+
+  .field-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:10px 0; border-bottom:1px solid var(--line);
+    font-size:13.5px;
+  }
+  .field-row .k{color:rgba(33,27,23,0.55);}
+  .field-row .v{font-weight:600; color:var(--ink);}
+  .field-row .v.empty{color:rgba(33,27,23,0.3); font-weight:400; font-style:italic;}
+
+  .product-card{
+    margin-top:26px;
+    background:#fff;
+    border:1px solid var(--line);
+    padding:22px;
+  }
+  .product-card .tag{
+    display:inline-block; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--gold); border:1px solid var(--gold); padding:3px 9px; margin-bottom:12px;
+  }
+  .product-card h3{
+    font-family:'Cormorant Garamond', serif; font-size:24px; margin:0 0 6px; color:var(--ink);
+  }
+  .product-card .price{
+    font-size:18px; color:var(--lotus); font-weight:600; margin-bottom:14px;
+  }
+  .product-card .desc{
+    font-size:13.5px; line-height:1.6; color:rgba(33,27,23,0.7); margin-bottom:16px;
+  }
+  .swatch-row{display:flex; gap:8px; margin-bottom:16px;}
+  .swatch{width:26px; height:26px; border:1px solid var(--line); flex-shrink:0;}
+
+  .placeholder-note{
+    margin-top:26px; font-size:12.5px; line-height:1.6; color:rgba(33,27,23,0.5);
+    border-top:1px dashed var(--line); padding-top:16px;
+  }
+
+  .ai-img-box{
+    margin-top:18px; border:1px solid var(--line); background:#fff;
+    min-height:180px; display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .ai-img-box img{width:100%; display:block;}
+  .ai-img-box .ph{font-size:12.5px; color:rgba(33,27,23,0.4); text-align:center; padding:24px;}
+
+  .rate-row{display:flex; gap:8px; margin-top:12px;}
+  .rate-btn{
+    flex:1; border:1px solid var(--line); background:#fff; padding:9px;
+    font-size:13px; cursor:pointer; font-family:inherit;
+  }
+  .rate-btn.active{background:var(--jade); color:var(--silk); border-color:var(--jade);}
+
+  footer{
+    text-align:center; padding:30px; font-size:11.5px;
+    color:rgba(33,27,23,0.4); letter-spacing:0.04em;
+  }
+
+  ::-webkit-scrollbar{width:8px;}
+  ::-webkit-scrollbar-thumb{background:var(--jade-soft); }
+  ::-webkit-scrollbar-track{background:var(--silk-deep);}
+</style>
+</head>
+<body>
+
+<header style="display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap;">
+  <div>
+    <div class="eyebrow">Demo · Chatbot AI tư vấn trang phục</div>
+    <h1>Thước Lụa</h1>
+    <p>Cứ trò chuyện tự nhiên với mình như với một stylist thật — ví dụ "mình cần áo dài đi tiệc mùa hè, ngân sách khoảng 500k". Mình sẽ tự hỏi thêm những gì còn thiếu, rồi phối đồ, tìm sản phẩm trên Shopee và minh hoạ bằng AI khi đã đủ thông tin. Tải ảnh dáng người bất cứ lúc nào cũng được.</p>
+  </div>
+  <button class="btn secondary" id="resetBtn" style="flex-shrink:0;">↺ Trò chuyện lại từ đầu</button>
+</header>
+
+<main>
+  <!-- CHAT COLUMN -->
+  <section class="chat-col">
+    <div class="tick-rule" id="tickRule"></div>
+
+    <div class="chat-window" id="chatWindow"></div>
+
+    <div class="quick-chips" id="quickChips"></div>
+
+    <div class="input-row">
+      <input type="text" id="textInput" placeholder="Nhắn gì cũng được, ví dụ: mình cần áo sơ mi công sở mùa hè..." autocomplete="off">
+      <button class="btn" id="sendBtn">Gửi</button>
+    </div>
+
+    <div class="upload-row">
+      <label class="file-btn" style="border-color:var(--jade); color:var(--jade);">
+        🧍 Tải ảnh dáng người của bạn (không bắt buộc)
+        <input type="file" id="bodyImgInput" accept="image/*">
+      </label>
+      <label>Để mình phối đồ và minh hoạ đúng dáng bạn cùng sản phẩm gợi ý</label>
+    </div>
+
+    <div class="upload-row">
+      <label class="file-btn">
+        📷 (Tuỳ chọn) Tải ảnh outfit hiện tại
+        <input type="file" id="imgInput" accept="image/*">
+      </label>
+      <label>Để mình gợi ý phối màu &amp; phụ kiện thêm</label>
+    </div>
+  </section>
+
+  <!-- SIDE COLUMN -->
+  <section class="side-col">
+    <div class="side-heading">Phiếu đo</div>
+    <p class="side-sub">AI tự cập nhật khi bạn trò chuyện bên trái</p>
+
+    <div class="field-row"><span class="k">Giới tính</span><span class="v empty" id="fGioiTinh">chưa rõ</span></div>
+    <div class="field-row"><span class="k">Loại đồ</span><span class="v empty" id="fLoai">chưa rõ</span></div>
+    <div class="field-row"><span class="k">Chiều cao</span><span class="v empty" id="fCao">chưa rõ</span></div>
+    <div class="field-row"><span class="k">Cân nặng</span><span class="v empty" id="fNang">chưa rõ</span></div>
+    <div class="field-row"><span class="k">Mùa</span><span class="v empty" id="fMua">chưa rõ</span></div>
+    <div class="field-row"><span class="k">Màu yêu thích</span><span class="v empty" id="fMau">chưa rõ</span></div>
+    <div class="field-row"><span class="k">Phong cách</span><span class="v empty" id="fPhongCach">chưa rõ</span></div>
+    <div class="field-row"><span class="k">Ngân sách</span><span class="v empty" id="fNganSach">chưa rõ</span></div>
+    <div class="field-row"><span class="k">Form dáng</span><span class="v empty" id="fForm">chưa rõ</span></div>
+
+    <div id="productCardWrap"></div>
+
+    <div id="bodyShapeWrap"></div>
+
+    <div id="colorAnalysisWrap"></div>
+
+    <div class="placeholder-note">
+      Trợ lý dùng AI thật (Google Gemini, miễn phí, qua hàm serverless <strong>/api/chat</strong>) để trò chuyện tự do: tự đọc hiểu tin nhắn của bạn, tự quyết định hỏi gì tiếp theo, và tự xác nhận khi nào đã đủ dữ kiện để chốt gợi ý trang phục — không đi theo kịch bản hỏi cố định. "Ghép đồ thật (beta)" gọi tới Space cộng đồng <strong>Kwai-Kolors/Kolors-Virtual-Try-On</strong> trên Hugging Face (miễn phí, dùng chung hàng đợi GPU, có thể chậm/quá tải/đôi khi đổi API mà không báo trước). "Minh hoạ mô tả" chỉ vẽ lại theo mô tả văn bản (vóc dáng + tông da ước lượng), nhanh hơn nhưng không phải ảnh ghép chính xác từ ảnh gốc của bạn. Link sản phẩm dẫn tới trang tìm kiếm Shopee thật theo từ khoá tương ứng — kết quả cụ thể (mẫu, giá, shop) do Shopee trả về tại thời điểm bạn bấm vào. Danh sách sản phẩm và lịch sử chat có thể được lưu trong database Supabase thật nếu đã cấu hình (xem README.md) — nếu chưa, web tự dùng dữ liệu mẫu offline.
+    </div>
+  </section>
+</main>
+
+<footer>THƯỚC LỤA — DEMO HỌC TẬP, KHÔNG DÙNG CHO MỤC ĐÍCH THƯƠNG MẠI</footer>
+
+<!-- Supabase JS client (dùng cho database sản phẩm + lưu lịch sử chat) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<script>
+/* ============== CẤU HÌNH DỊCH VỤ MIỄN PHÍ ==============
+ */
+const SUPABASE_URL = ''; 
+const SUPABASE_ANON_KEY = ''; 
+let supabaseClient = null;
+let dbReady = false;
+if(SUPABASE_URL && SUPABASE_ANON_KEY && window.supabase){
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  dbReady = true;
+}
+
+// ID phiên chat, dùng để nhóm các tin nhắn của cùng 1 lượt ghé thăm khi lưu vào Supabase
+const SESSION_ID = (crypto?.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random());
+
+async function luuChatVaoDB(vaiTro, noiDung){
+  if(!dbReady) return; // chưa cấu hình Supabase -> bỏ qua, không lỗi
+  try{
+    await supabaseClient.from('chat_logs').insert({
+      session_id: SESSION_ID,
+      role: vaiTro,       // 'user' hoặc 'bot'
+      content: noiDung
+    });
+  }catch(err){
+    console.warn('Không lưu được chat vào Supabase:', err);
+  }
+}
+
+async function taiSanPhamTuDB(){
+  if(!dbReady) return null;
+  try{
+    const { data, error } = await supabaseClient.from('products').select('*');
+    if(error) throw error;
+    if(!data || !data.length) return null;
+    // Supabase trả về cột snake_case -> map lại cho khớp với code hiện tại (camelCase/việt hoá)
+    return data.map(row => ({
+      loai: row.loai, nhom: row.nhom, gioiTinh: row.gioi_tinh, ten: row.ten,
+      mua: row.mua, mau: row.mau, phongCach: row.phong_cach, gia: row.gia,
+      mota: row.mota, keyword: row.keyword
+    }));
+  }catch(err){
+    console.warn('Không tải được sản phẩm từ Supabase, dùng dữ liệu mẫu offline:', err);
+    return null;
+  }
+}
+
+/* ============== GỌI AI THẬT (Gemini, qua serverless function /api/chat) ==============
+   Hàm này gọi tới file api/chat.js (chạy trên Vercel), nơi giấu API key thật.
+   Nếu chưa deploy lên Vercel (đang mở file trực tiếp / chạy local), fetch sẽ lỗi
+   và code sẽ tự động dùng lại câu trả lời mẫu (fallback) để demo không bị vỡ. */
+async function hoiAI(prompt){
+  try{
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ prompt })
+    });
+    if(!res.ok) throw new Error('API /api/chat trả về lỗi ' + res.status);
+    const data = await res.json();
+    if(!data.reply) throw new Error('Không có nội dung trả lời từ AI');
+    return data.reply;
+  }catch(err){
+    console.warn('Không gọi được AI thật (/api/chat), dùng câu trả lời mẫu thay thế:', err);
+    return null; // để nơi gọi tự fallback
+  }
+}
+</script>
+
+<script>
+/* ============== DỮ LIỆU SẢN PHẨM (mock đa dạng, link tìm kiếm Shopee thật) ==============
+   Đây là dữ liệu DỰ PHÒNG (offline). Nếu bạn đã cấu hình Supabase ở trên,
+   web sẽ tự động nạp dữ liệu thật từ bảng "products" trong database thay cho mảng này. */
+let PRODUCTS_FALLBACK = [
+  // ÁO DÀI (full outfit, nữ)
+  {loai:'ao_dai', nhom:'full', gioiTinh:'nu', ten:'Áo dài voan hoạ tiết nhẹ nhàng', mua:'xuan_he', mau:'pastel', phongCach:'basic', gia:280000, mota:'Voan mềm nhẹ, hoạ tiết nhỏ tinh tế, mức giá phổ thông dễ mua.', keyword:'áo dài voan hoạ tiết nhẹ'},
+  {loai:'ao_dai', nhom:'full', gioiTinh:'nu', ten:'Áo dài lụa truyền thống', mua:'xuan_he', mau:'sang', phongCach:'cong_so', gia:450000, mota:'Lụa tơ tằm mỏng nhẹ, form ôm nhẹ, tông màu sáng nền nã.', keyword:'áo dài lụa nữ truyền thống'},
+  {loai:'ao_dai', nhom:'full', gioiTinh:'nu', ten:'Áo dài cách tân hoạ tiết pastel', mua:'xuan_he', mau:'pastel', phongCach:'dao_pho', gia:480000, mota:'Form cách tân trẻ trung, hoạ tiết hoa nhí tông pastel.', keyword:'áo dài cách tân pastel'},
+  {loai:'ao_dai', nhom:'full', gioiTinh:'nu', ten:'Áo dài gấm cách tân', mua:'thu_dong', mau:'dat', phongCach:'cong_so', gia:540000, mota:'Gấm dày dặn ấm áp, thêu hoạ tiết hoa sen, hợp se lạnh.', keyword:'áo dài gấm cách tân'},
+  {loai:'ao_dai', nhom:'full', gioiTinh:'nu', ten:'Áo dài nhung đính đá', mua:'thu_dong', mau:'toi', phongCach:'cong_so', gia:620000, mota:'Nhung mềm rủ, đính đá nhẹ ở cổ, sang trọng cho tiệc/sự kiện.', keyword:'áo dài nhung đính đá'},
+
+  // ÁO THUN (top, unisex)
+  {loai:'ao_thun', nhom:'top', gioiTinh:'unisex', ten:'Áo thun cotton basic trơn', mua:'xuan_he', mau:'sang', phongCach:'basic', gia:120000, mota:'Cotton 100%, form regular, dễ phối mọi loại quần.', keyword:'áo thun cotton basic trơn'},
+  {loai:'ao_thun', nhom:'top', gioiTinh:'unisex', ten:'Áo thun oversize tối giản', mua:'xuan_he', mau:'toi', phongCach:'dao_pho', gia:150000, mota:'Form oversize Hàn Quốc, vải mềm rũ, hợp phong cách đường phố.', keyword:'áo thun oversize basic'},
+  {loai:'ao_thun', nhom:'top', gioiTinh:'unisex', ten:'Áo thun pastel form vừa', mua:'xuan_he', mau:'pastel', phongCach:'basic', gia:135000, mota:'Tông pastel dịu nhẹ, vải thun co giãn thoáng mát.', keyword:'áo thun pastel form vừa'},
+  {loai:'ao_thun', nhom:'top', gioiTinh:'unisex', ten:'Áo thun in graphic màu nổi', mua:'xuan_he', mau:'ruc_ro', phongCach:'nang_dong', gia:160000, mota:'Hoạ tiết in graphic cá tính, màu sắc nổi bật năng động.', keyword:'áo thun graphic màu nổi'},
+  {loai:'ao_thun', nhom:'top', gioiTinh:'unisex', ten:'Áo thun dài tay cotton dày', mua:'thu_dong', mau:'dat', phongCach:'basic', gia:175000, mota:'Cotton dày giữ ấm nhẹ, hợp layer mùa thu đông.', keyword:'áo thun dài tay cotton dày'},
+  {loai:'ao_thun', nhom:'top', gioiTinh:'unisex', ten:'Áo thun cotton cao cấp phối tay raglan', mua:'thu_dong', mau:'toi', phongCach:'nang_dong', gia:350000, mota:'Cotton cao cấp dày dặn, phối tay raglan, form chuẩn thể thao.', keyword:'áo thun cotton cao cấp raglan'},
+  {loai:'ao_thun', nhom:'top', gioiTinh:'unisex', ten:'Áo thun thương hiệu phiên bản giới hạn', mua:'xuan_he', mau:'ruc_ro', phongCach:'dao_pho', gia:650000, mota:'Chất liệu nhập khẩu, in phiên bản giới hạn, form đứng phom cao cấp.', keyword:'áo thun thương hiệu phiên bản giới hạn'},
+
+  // SƠ MI (top, công sở/dạo phố)
+  {loai:'so_mi', nhom:'top', gioiTinh:'unisex', ten:'Sơ mi trắng basic công sở', mua:'xuan_he', mau:'sang', phongCach:'cong_so', gia:230000, mota:'Vải tuyết mưa không nhăn, form slimfit thanh lịch.', keyword:'sơ mi trắng công sở'},
+  {loai:'so_mi', nhom:'top', gioiTinh:'unisex', ten:'Sơ mi caro tông đất', mua:'thu_dong', mau:'dat', phongCach:'dao_pho', gia:260000, mota:'Hoạ tiết caro tông đất ấm, hợp phối layer mùa lạnh.', keyword:'sơ mi caro tông đất'},
+  {loai:'so_mi', nhom:'top', gioiTinh:'unisex', ten:'Sơ mi lụa pastel', mua:'xuan_he', mau:'pastel', phongCach:'cong_so', gia:280000, mota:'Chất lụa mềm rũ, tông pastel thanh lịch, nhẹ nhàng.', keyword:'sơ mi lụa pastel'},
+  {loai:'so_mi', nhom:'top', gioiTinh:'unisex', ten:'Sơ mi denim tối màu', mua:'thu_dong', mau:'toi', phongCach:'dao_pho', gia:290000, mota:'Chất denim form rộng, cá tính, hợp phong cách đường phố.', keyword:'sơ mi denim form rộng'},
+  {loai:'so_mi', nhom:'top', gioiTinh:'unisex', ten:'Sơ mi linen cao cấp', mua:'xuan_he', mau:'sang', phongCach:'cong_so', gia:350000, mota:'Linen cao cấp thoáng mát, đường may tỉ mỉ, chuẩn công sở.', keyword:'sơ mi linen cao cấp'},
+  {loai:'so_mi', nhom:'top', gioiTinh:'unisex', ten:'Sơ mi lụa tơ tằm thương hiệu', mua:'thu_dong', mau:'dat', phongCach:'cong_so', gia:680000, mota:'Lụa tơ tằm thật, đường may thủ công, đẳng cấp sang trọng.', keyword:'sơ mi lụa tơ tằm thương hiệu'},
+
+  // ĐẦM (full outfit, nữ)
+  {loai:'dam', nhom:'full', gioiTinh:'nu', ten:'Đầm suông cotton giá tốt', mua:'xuan_he', mau:'sang', phongCach:'basic', gia:260000, mota:'Cotton thoáng mát, dáng suông đơn giản, mức giá phổ thông.', keyword:'đầm suông cotton giá tốt'},
+  {loai:'dam', nhom:'full', gioiTinh:'nu', ten:'Đầm linen trắng dáng suông', mua:'xuan_he', mau:'sang', phongCach:'basic', gia:320000, mota:'Linen thoáng mát, dáng suông thoải mái, hợp đi chơi/đi làm.', keyword:'đầm linen trắng dáng suông'},
+  {loai:'dam', nhom:'full', gioiTinh:'nu', ten:'Đầm hoa pastel midi', mua:'xuan_he', mau:'pastel', phongCach:'dao_pho', gia:350000, mota:'Hoạ tiết hoa nhỏ tông pastel, midi dài qua gối nữ tính.', keyword:'đầm hoa pastel midi'},
+  {loai:'dam', nhom:'full', gioiTinh:'nu', ten:'Đầm len cổ lọ tối màu', mua:'thu_dong', mau:'toi', phongCach:'cong_so', gia:380000, mota:'Len mềm giữ ấm, cổ lọ thanh lịch, hợp công sở mùa lạnh.', keyword:'đầm len cổ lọ tối màu'},
+  {loai:'dam', nhom:'full', gioiTinh:'nu', ten:'Đầm dạ hội cao cấp đính đá', mua:'thu_dong', mau:'toi', phongCach:'cong_so', gia:680000, mota:'Vải cao cấp, đính đá tinh xảo, hợp sự kiện/tiệc sang trọng.', keyword:'đầm dạ hội cao cấp đính đá'},
+
+  // QUẦN JEANS (bottom, unisex)
+  {loai:'quan_jeans', nhom:'bottom', gioiTinh:'unisex', ten:'Quần jeans xanh basic ống suông', mua:'xuan_he', mau:'toi', phongCach:'basic', gia:280000, mota:'Form ống suông dễ mặc, dễ phối mọi loại áo.', keyword:'quần jeans xanh ống suông'},
+  {loai:'quan_jeans', nhom:'bottom', gioiTinh:'unisex', ten:'Quần jeans baggy tối màu', mua:'thu_dong', mau:'toi', phongCach:'dao_pho', gia:320000, mota:'Form baggy rộng rãi, cá tính đường phố.', keyword:'quần jeans baggy tối màu'},
+  {loai:'quan_jeans', nhom:'bottom', gioiTinh:'unisex', ten:'Quần jeans trắng kem ống đứng', mua:'xuan_he', mau:'sang', phongCach:'cong_so', gia:300000, mota:'Tông sáng thanh lịch, ống đứng gọn gàng.', keyword:'quần jeans trắng ống đứng'},
+  {loai:'quan_jeans', nhom:'bottom', gioiTinh:'unisex', ten:'Quần jeans premium selvedge', mua:'thu_dong', mau:'toi', phongCach:'dao_pho', gia:650000, mota:'Vải denim selvedge cao cấp, bền form, đường may chắc chắn.', keyword:'quần jeans premium selvedge'},
+
+  // CHÂN VÁY (bottom, nữ)
+  {loai:'chan_vay', nhom:'bottom', gioiTinh:'nu', ten:'Chân váy chữ A pastel', mua:'xuan_he', mau:'pastel', phongCach:'dao_pho', gia:180000, mota:'Dáng chữ A tôn dáng, tông pastel dịu dàng.', keyword:'chân váy chữ A pastel'},
+  {loai:'chan_vay', nhom:'bottom', gioiTinh:'nu', ten:'Chân váy dạ tối màu công sở', mua:'thu_dong', mau:'toi', phongCach:'cong_so', gia:260000, mota:'Vải dạ dày dặn giữ ấm, hợp công sở mùa lạnh.', keyword:'chân váy dạ công sở tối màu'},
+  {loai:'chan_vay', nhom:'bottom', gioiTinh:'nu', ten:'Chân váy tông đất nung', mua:'thu_dong', mau:'dat', phongCach:'basic', gia:220000, mota:'Tông đất nung ấm áp, dễ phối áo len/sơ mi.', keyword:'chân váy tông đất nung'},
+  {loai:'chan_vay', nhom:'bottom', gioiTinh:'nu', ten:'Chân váy xếp ly cao cấp', mua:'xuan_he', mau:'pastel', phongCach:'cong_so', gia:350000, mota:'Xếp ly tinh tế, vải rủ đẹp form, sang trọng nhẹ nhàng.', keyword:'chân váy xếp ly cao cấp'},
+  {loai:'chan_vay', nhom:'bottom', gioiTinh:'nu', ten:'Chân váy da cao cấp', mua:'thu_dong', mau:'toi', phongCach:'dao_pho', gia:650000, mota:'Chất da PU cao cấp, form ôm nhẹ cá tính, sang trọng.', keyword:'chân váy da cao cấp'},
+
+  // ÁO KHOÁC (top/outer, unisex)
+  {loai:'ao_khoac', nhom:'top', gioiTinh:'unisex', ten:'Áo khoác gió mỏng giá tốt', mua:'xuan_he', mau:'sang', phongCach:'basic', gia:250000, mota:'Vải gió mỏng nhẹ, chống nắng/gió nhẹ, mức giá phổ thông.', keyword:'áo khoác gió mỏng giá tốt'},
+  {loai:'ao_khoac', nhom:'top', gioiTinh:'unisex', ten:'Áo khoác denim basic', mua:'thu_dong', mau:'toi', phongCach:'basic', gia:350000, mota:'Denim bền form, dễ layer ngoài áo thun/sơ mi.', keyword:'áo khoác denim basic'},
+  {loai:'ao_khoac', nhom:'top', gioiTinh:'unisex', ten:'Áo khoác dù màu rực rỡ', mua:'thu_dong', mau:'ruc_ro', phongCach:'nang_dong', gia:380000, mota:'Chất liệu dù chống gió nhẹ, màu nổi bật năng động.', keyword:'áo khoác dù màu nổi'},
+  {loai:'ao_khoac', nhom:'top', gioiTinh:'unisex', ten:'Áo khoác len pastel', mua:'thu_dong', mau:'pastel', phongCach:'cong_so', gia:420000, mota:'Len mềm tông pastel, mặc ngoài áo thun/sơ mi đều hợp.', keyword:'áo khoác len pastel'},
+  {loai:'ao_khoac', nhom:'top', gioiTinh:'unisex', ten:'Áo khoác phao cao cấp giữ nhiệt', mua:'thu_dong', mau:'toi', phongCach:'nang_dong', gia:680000, mota:'Công nghệ giữ nhiệt cao cấp, chống lạnh sâu, form chuẩn.', keyword:'áo khoác phao cao cấp giữ nhiệt'},
+];
+
+// PRODUCTS là biến thực sự được toàn bộ code phía dưới dùng.
+// Mặc định = dữ liệu fallback; sẽ được thay bằng dữ liệu Supabase (nếu có) khi khởi động.
+let PRODUCTS = PRODUCTS_FALLBACK;
+
+const LOAI_LABEL = {ao_dai:'Áo dài', ao_thun:'Áo thun', so_mi:'Áo sơ mi', dam:'Đầm', quan_jeans:'Quần jeans', chan_vay:'Chân váy', ao_khoac:'Áo khoác'};
+const MAU_LABEL = {sang:'Trắng / be sáng nền nã', toi:'Đen / tối giản', pastel:'Pastel ngọt ngào', ruc_ro:'Rực rỡ, nổi bật', dat:'Tông đất ấm áp'};
+const PHONGCACH_LABEL = {basic:'Basic tối giản', cong_so:'Công sở lịch sự', dao_pho:'Dạo phố cá tính', nang_dong:'Năng động, thể thao'};
+const NGANSACH_LABEL = {duoi300:'Dưới 300.000đ', tu300den600:'300.000đ – 600.000đ', tren600:'Trên 600.000đ'};
+const NGANSACH_RANGE = {duoi300:[0,300000], tu300den600:[300000,600000], tren600:[600000,999999999]};
+const LOAI_CHI_NU = ['ao_dai','dam','chan_vay']; // các loại trang phục chỉ áp dụng cho nữ trong demo này
+
+/* ============== STATE ============== */
+const DEFAULT_STATE = {
+  bodyPhoto: null, bodySkin: null,
+  gioiTinh: null, loai: null, cao: null, nang: null, mua: null,
+  mau: null, phongCach: null, nganSach: null, soThich: null,
+};
+let state = {...DEFAULT_STATE};
+let currentOutfit = []; // sản phẩm đang gợi ý (top + bottom hoặc full)
+let convHistory = [];   // lịch sử hội thoại gửi kèm cho AI mỗi lượt (AI không có bộ nhớ giữa các lần gọi)
+
+const chatWindow = document.getElementById('chatWindow');
+const quickChips = document.getElementById('quickChips');
+const textInput = document.getElementById('textInput');
+const sendBtn = document.getElementById('sendBtn');
+const imgInput = document.getElementById('imgInput');
+const bodyImgInput = document.getElementById('bodyImgInput');
+const resetBtn = document.getElementById('resetBtn');
+
+/* ============== TICK RULER (signature deco) ============== */
+(function buildRuler(){
+  const wrap = document.getElementById('tickRule');
+  let html = '';
+  for(let i=0;i<70;i++){ html += '<span></span>'; }
+  wrap.innerHTML = html;
+})();
+
+/* ============== CHAT HELPERS ============== */
+function addMsg(text, who){
+  const div = document.createElement('div');
+  div.className = 'msg ' + who;
+  const label = document.createElement('span');
+  label.className = 'label';
+  label.textContent = who === 'bot' ? 'Thước Lụa' : 'Bạn';
+  div.appendChild(label);
+  const body = document.createElement('span');
+  body.textContent = text;
+  div.appendChild(body);
+  chatWindow.appendChild(div);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+  luuChatVaoDB(who, text); // fire-and-forget, không chặn UI
+}
+
+function addImgMsg(src){
+  const div = document.createElement('div');
+  div.className = 'img-msg';
+  const img = document.createElement('img');
+  img.src = src;
+  div.appendChild(img);
+  chatWindow.appendChild(div);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+function setChips(options){
+  quickChips.innerHTML = '';
+  options.forEach(opt => {
+    const b = document.createElement('button');
+    b.className = 'chip';
+    b.textContent = opt.label;
+    b.onclick = () => handleUserInput(opt.value);
+    quickChips.appendChild(b);
+  });
+}
+
+function updateFittingCard(){
+  const set = (id, val, label) => {
+    const el = document.getElementById(id);
+    el.textContent = val ? label : 'chưa rõ';
+    el.classList.toggle('empty', !val);
+  };
+  set('fGioiTinh', state.gioiTinh, state.gioiTinh === 'nam' ? 'Nam' : state.gioiTinh === 'nu' ? 'Nữ' : '');
+  set('fLoai', state.loai, LOAI_LABEL[state.loai]);
+  set('fCao', state.cao, state.cao + ' cm');
+  set('fNang', state.nang, state.nang + ' kg');
+  set('fMua', state.mua, state.mua === 'xuan_he' ? 'Xuân hè' : 'Thu đông');
+  set('fMau', state.mau, MAU_LABEL[state.mau]);
+  set('fPhongCach', state.phongCach, PHONGCACH_LABEL[state.phongCach]);
+  set('fNganSach', state.nganSach, NGANSACH_LABEL[state.nganSach]);
+  set('fForm', state.soThich, state.soThich === 'rong' ? 'Mặc rộng rãi' : 'Mặc vừa form');
+}
+
+/* ============== ƯỚC LƯỢNG VÓC DÁNG TỪ CHIỀU CAO/CÂN NẶNG ============== */
+function uocLuongVocDang(){
+  if(!state.cao || !state.nang) return null;
+  const m = state.cao/100;
+  const bmi = state.nang / (m*m);
+  if(bmi < 18.5) return {nhan:'mảnh khảnh, thon gọn', tu:'slim, slender build'};
+  if(bmi < 23) return {nhan:'cân đối, vóc dáng trung bình', tu:'average athletic build'};
+  if(bmi < 27) return {nhan:'đầy đặn, vóc dáng khỏe khoắn', tu:'fuller, sturdy build'};
+  return {nhan:'vóc dáng to khỏe, đầy đặn', tu:'plus-size, full-figured build'};
+}
+
+/* ============== LOGIC CHỌN SẢN PHẨM / PHỐI ĐỒ ============== */
+function shopeeUrl(keyword){
+  return 'https://shopee.vn/search?keyword=' + encodeURIComponent(keyword);
+}
+
+function diemPhuHop(p){
+  let diem = 0;
+  if(state.mua && p.mua === state.mua) diem += 3;
+  if(state.mau && p.mau === state.mau) diem += 3;
+  if(state.phongCach && p.phongCach === state.phongCach) diem += 2;
+  if(state.gioiTinh && (p.gioiTinh === state.gioiTinh || p.gioiTinh === 'unisex')) diem += 2;
+  if(state.nganSach){
+    const [min,max] = NGANSACH_RANGE[state.nganSach];
+    if(p.gia >= min && p.gia <= max) diem += 2;
+  }
+  return diem;
+}
+
+function timSanPham(loaiCanTim, tru){
+  let pool = PRODUCTS.filter(p =>
+    p.loai === loaiCanTim &&
+    (!tru || p.ten !== tru.ten) &&
+    // CHẶN CỨNG: loại bỏ sản phẩm sai giới tính (không phải unisex và khác giới tính đã chọn)
+    (!state.gioiTinh || p.gioiTinh === 'unisex' || p.gioiTinh === state.gioiTinh) &&
+    // CHẶN CỨNG: loại bỏ sản phẩm ngoài đúng khoảng ngân sách đã chọn
+    (!state.nganSach || (p.gia >= NGANSACH_RANGE[state.nganSach][0] && p.gia <= NGANSACH_RANGE[state.nganSach][1]))
+  );
+  if(pool.length === 0) return null;
+  pool = pool.map(p => ({p, diem: diemPhuHop(p)}));
+  pool.sort((a,b) => b.diem - a.diem);
+  return pool[0].p;
+}
+
+function phoiDo(){
+  if(!state.loai) return [];
+  const chinh = timSanPham(state.loai);
+  if(!chinh) return [];
+  const ketQua = [chinh];
+  // nếu sản phẩm chính chỉ là 'top' hoặc 'bottom' (chưa phải full outfit), gợi ý thêm món còn lại để thành 1 set
+  if(chinh.nhom === 'top'){
+    const bottomLoai = state.gioiTinh === 'nu' ? ['quan_jeans','chan_vay'] : ['quan_jeans'];
+    let bestBottom = null, bestDiem = -1;
+    bottomLoai.forEach(bl => {
+      const cand = timSanPham(bl);
+      if(cand){
+        const d = diemPhuHop(cand);
+        if(d > bestDiem){ bestDiem = d; bestBottom = cand; }
+      }
+    });
+    if(bestBottom) ketQua.push(bestBottom);
+  } else if(chinh.nhom === 'bottom'){
+    const cand = timSanPham('ao_thun') || timSanPham('so_mi');
+    if(cand) ketQua.push(cand);
+  }
+  return ketQua;
+}
+
+/* ============== RENDER SẢN PHẨM / OUTFIT ============== */
+function renderProductCard(outfit){
+  const wrap = document.getElementById('productCardWrap');
+  currentOutfit = outfit || [];
+  if(!outfit || outfit.length === 0){
+    wrap.innerHTML = '';
+    return;
+  }
+  wrap.innerHTML = outfit.map(p => `
+    <div class="product-card" style="margin-bottom:14px;">
+      <span class="tag">${LOAI_LABEL[p.loai]} · ${p.mua==='xuan_he'?'Xuân hè':'Thu đông'}</span>
+      <h3>${p.ten}</h3>
+      <div class="price">${p.gia.toLocaleString('vi-VN')}đ</div>
+      <div class="desc">${p.mota}</div>
+      <a class="btn secondary" style="display:inline-block; text-decoration:none; text-align:center;" href="${shopeeUrl(p.keyword)}" target="_blank" rel="noopener">Tìm "${p.keyword}" trên Shopee ↗</a>
+    </div>
+  `).join('') + `
+    <button class="btn secondary" id="genImgBtn" style="width:100%; margin-top:4px;">Sinh ảnh minh hoạ outfit</button>
+    <div class="ai-img-box" id="aiImgBox"><div class="ph">Ảnh minh hoạ AI sẽ hiện ở đây sau khi bấm nút trên</div></div>
+    <div class="rate-row" id="rateRow" style="display:none;">
+      <button class="rate-btn" data-r="up">👍 Hợp lý</button>
+      <button class="rate-btn" data-r="down">👎 Chưa hợp</button>
+    </div>
+  `;
+  document.getElementById('genImgBtn').onclick = () => sinhAnhOutfit(outfit);
+  renderBodyShapeBox();
+}
+
+// Từ khoá giới tính dùng để gắn vào MỌI prompt sinh ảnh, đảm bảo
+// nam luôn nhận trang phục nam, nữ luôn nhận trang phục nữ.
+function gioiTinhWord(){
+  if(state.gioiTinh === 'nam') return "men's";
+  if(state.gioiTinh === 'nu') return "women's";
+  return '';
+}
+function nguoiMauWord(){
+  if(state.gioiTinh === 'nam') return 'a male Vietnamese model, masculine features, short hair';
+  if(state.gioiTinh === 'nu') return 'a female Vietnamese model, feminine features';
+  return 'a Vietnamese person';
+}
+
+function moTaOutfitChoPrompt(outfit){
+  const gt = gioiTinhWord();
+  const gtPrefix = gt ? gt + ' ' : '';
+  return outfit.map(p => {
+    if(p.loai === 'ao_dai'){
+      // áo dài chỉ dành cho nữ trong demo này, luôn gắn rõ "women's"
+      return "women's Vietnamese ao dai traditional dress";
+    }
+    if(p.loai === 'dam' || p.loai === 'chan_vay'){
+      // đầm / chân váy chỉ dành cho nữ
+      const ten = p.loai==='dam' ? 'dress' : 'skirt';
+      return "women's " + ten;
+    }
+    const ten = p.loai==='ao_thun' ? 't-shirt' :
+      p.loai==='so_mi' ? 'shirt' :
+      p.loai==='quan_jeans' ? 'jeans' :
+      p.loai==='ao_khoac' ? 'jacket' : p.loai;
+    return gtPrefix + ten;
+  }).join(' and ');
+}
+
+function sinhAnhOutfit(outfit){
+  const box = document.getElementById('aiImgBox');
+  box.innerHTML = '<div class="ph">Đang sinh ảnh minh hoạ, vui lòng đợi vài giây...</div>';
+  const seasonWord = state.mua === 'xuan_he' ? 'light fabric, bright daylight' : 'warm autumn tones, soft indoor light';
+  const prompt = encodeURIComponent(
+    `professional fashion editorial photo of ${nguoiMauWord()} wearing ${moTaOutfitChoPrompt(outfit)}, ${seasonWord}, clean minimal studio background, full body shot, elegant pose, high quality fashion photography`
+  );
+  const url = `https://image.pollinations.ai/prompt/${prompt}?width=512&height=640&nologo=true&seed=${Date.now()}`;
+  const img = new Image();
+  img.onload = () => {
+    box.innerHTML = '';
+    box.appendChild(img);
+    document.getElementById('rateRow').style.display = 'flex';
+    bindRateButtons();
+  };
+  img.onerror = () => {
+    box.innerHTML = '<div class="ph">Không tải được ảnh minh hoạ lúc này, bạn thử lại sau nhé.</div>';
+  };
+  img.src = url;
+}
+
+function bindRateButtons(){
+  document.querySelectorAll('.rate-btn').forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll('.rate-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      addMsg(btn.dataset.r === 'up' ? 'Cảm ơn bạn đã đánh giá ảnh minh hoạ là phù hợp!' : 'Cảm ơn phản hồi, mình sẽ ghi nhận để gợi ý tốt hơn lần sau.', 'bot');
+    };
+  });
+}
+
+/* ============== ẢNH DÁNG NGƯỜI + OUTFIT ============== */
+function renderBodyShapeBox(){
+  const wrap = document.getElementById('bodyShapeWrap');
+  if(!state.bodyPhoto){
+    wrap.innerHTML = '';
+    return;
+  }
+  wrap.innerHTML = `
+    <div class="product-card" style="margin-top:18px;">
+      <span class="tag">Dáng người của bạn</span>
+      <h3 style="font-size:19px;">Ghép đồ cùng outfit gợi ý</h3>
+      <div class="desc">Ảnh bạn tải lên (trái) và kết quả ghép đồ (phải). Có 2 chế độ: <strong>"Ghép đồ thật (beta)"</strong> dùng mô hình Kolors Virtual Try-On thật (ghép đúng theo ảnh dáng người của bạn, miễn phí nhưng có thể chậm/quá tải), hoặc <strong>"Minh hoạ mô tả"</strong> nhanh hơn nhưng chỉ vẽ lại theo mô tả, không phải ghép từ đúng ảnh gốc.</div>
+      <div style="display:flex; gap:10px; margin-top:10px;">
+        <div style="flex:1;">
+          <div style="font-size:11px; color:rgba(33,27,23,0.5); margin-bottom:6px;">Ảnh bạn tải lên</div>
+          <img src="${state.bodyPhoto}" style="width:100%; display:block; border:1px solid var(--line);">
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:11px; color:rgba(33,27,23,0.5); margin-bottom:6px;">Kết quả ghép đồ</div>
+          <div class="ai-img-box" id="bodyAiImgBox" style="min-height:0;"><div class="ph">Bấm một trong hai nút bên dưới để sinh ảnh</div></div>
+        </div>
+      </div>
+      <button class="btn" id="genKolorsBtn" style="margin-top:14px; width:100%;" ${currentOutfit.length?'':'disabled'}>🧪 Ghép đồ thật bằng Kolors AI (beta, miễn phí, có thể chậm)</button>
+      <button class="btn secondary" id="genBodyImgBtn" style="margin-top:8px; width:100%;" ${currentOutfit.length?'':'disabled'}>Minh hoạ mô tả nhanh (không ghép thật)</button>
+      <div id="kolorsStatus" style="font-size:12px; color:rgba(33,27,23,0.55); margin-top:8px;"></div>
+    </div>
+  `;
+  const btn = document.getElementById('genBodyImgBtn');
+  if(btn) btn.onclick = () => sinhAnhDangNguoi();
+  const kbtn = document.getElementById('genKolorsBtn');
+  if(kbtn) kbtn.onclick = () => ghepDoThatKolors();
+}
+
+function sinhAnhDangNguoi(){
+  if(!currentOutfit.length || !state.bodyPhoto) return;
+  const box = document.getElementById('bodyAiImgBox');
+  box.innerHTML = '<div class="ph">Đang sinh ảnh minh hoạ theo vóc dáng của bạn, vui lòng đợi vài giây...</div>';
+  const voc = uocLuongVocDang() || {tu:'average build'};
+  const skinWord = state.bodySkin ? `, skin tone approx rgb(${state.bodySkin.r},${state.bodySkin.g},${state.bodySkin.b})` : '';
+  const seasonWord = state.mua === 'xuan_he' ? 'light fabric, bright daylight' : 'warm autumn tones, soft indoor light';
+  const prompt = encodeURIComponent(
+    `professional fashion editorial photo of ${nguoiMauWord()} with ${voc.tu}${skinWord} wearing ${moTaOutfitChoPrompt(currentOutfit)}, ${seasonWord}, clean minimal studio background, full body shot, realistic proportions, high quality fashion photography`
+  );
+  const url = `https://image.pollinations.ai/prompt/${prompt}?width=512&height=640&nologo=true&seed=${Date.now()}`;
+  const img = new Image();
+  img.onload = () => { box.innerHTML=''; box.appendChild(img); };
+  img.onerror = () => { box.innerHTML = '<div class="ph">Không tải được ảnh minh hoạ lúc này, bạn thử lại sau nhé.</div>'; };
+  img.src = url;
+}
+
+/* ============== GHÉP ĐỒ THẬT BẰNG KOLORS VIRTUAL TRY-ON (Hugging Face Space, beta) ============== */
+async function ghepDoThatKolors(){
+  if(!currentOutfit.length || !state.bodyPhoto) return;
+  const box = document.getElementById('bodyAiImgBox');
+  const status = document.getElementById('kolorsStatus');
+  const setStatus = (t) => { if(status) status.textContent = t; };
+
+  box.innerHTML = '<div class="ph">Đang chuẩn bị ảnh trang phục để gửi sang Kolors...</div>';
+  setStatus('Bước 1/3: tạo ảnh trang phục rời (flat-lay) làm đầu vào "garment"...');
+
+  try{
+    // Bước 1: tạo ảnh trang phục rời (không có người mẫu) để làm input "garment image"
+    const garmentPrompt = encodeURIComponent(
+      `flat lay product photography of ${moTaOutfitChoPrompt(currentOutfit)}, isolated on plain white background, e-commerce catalog photo for ${gioiTinhWord() || 'adult'} clothing, no person, no mannequin, no human body, studio lighting, top view`
+    );
+    const garmentUrl = `https://image.pollinations.ai/prompt/${garmentPrompt}?width=512&height=640&nologo=true&seed=${Date.now()}`;
+    const garmentBlob = await fetch(garmentUrl).then(r => {
+      if(!r.ok) throw new Error('Không tạo được ảnh trang phục đầu vào.');
+      return r.blob();
+    });
+
+    setStatus('Bước 2/3: kết nối Space Kolors-Virtual-Try-On trên Hugging Face (hàng đợi miễn phí, có thể mất 20–90 giây)...');
+    box.innerHTML = '<div class="ph">Đang ghép đồ thật, vui lòng đợi (hàng đợi miễn phí có thể chậm)...</div>';
+
+    const personBlob = await (await fetch(state.bodyPhoto)).blob();
+
+    // Dùng thư viện chính thức @gradio/client để gọi API của Space (theo hướng dẫn của team Kolors)
+    const { Client } = await import('https://esm.sh/@gradio/client');
+    const client = await Client.connect('Kwai-Kolors/Kolors-Virtual-Try-On');
+
+    setStatus('Bước 3/3: đang xử lý ghép đồ trên GPU dùng chung...');
+    const result = await client.predict('/tryon', [personBlob, garmentBlob, 0, true]);
+
+    const data = result && result.data;
+    const first = Array.isArray(data) ? data[0] : data;
+    const imgUrl = first && (first.url || first.path || (typeof first === 'string' ? first : null));
+    if(!imgUrl) throw new Error('Space không trả về ảnh kết quả hợp lệ (có thể API đã đổi tên hàm/tham số).');
+
+    box.innerHTML = '';
+    const img = new Image();
+    img.onload = () => { setStatus('Hoàn tất — kết quả ghép thật từ Kolors Virtual Try-On.'); };
+    img.onerror = () => { box.innerHTML = '<div class="ph">Nhận được phản hồi nhưng không hiển thị được ảnh.</div>'; };
+    img.src = imgUrl;
+    box.appendChild(img);
+    addMsg('Mình đã ghép thử bằng Kolors Virtual Try-On (beta, miễn phí) — đây là ảnh ghép theo đúng dáng người bạn đã tải lên, không phải ảnh vẽ lại theo mô tả.', 'bot');
+  }catch(err){
+    console.error('Lỗi gọi Kolors Virtual Try-On:', err);
+    setStatus('Không kết nối được Space miễn phí (quá tải / đang ngủ / API đã thay đổi). Đang chuyển sang chế độ minh hoạ mô tả thay thế...');
+    addMsg('Space Kolors Virtual Try-On miễn phí hiện không phản hồi được — đây là dịch vụ cộng đồng dùng chung nên không đảm bảo lúc nào cũng sẵn sàng. Mình tạo ảnh minh hoạ theo mô tả văn bản thay thế nhé. Bạn cũng có thể thử bấm lại nút "Ghép đồ thật" sau ít phút.', 'bot');
+    sinhAnhDangNguoi();
+  }
+}
+
+/* ============== PHÂN TÍCH MÀU ẢNH (canvas, không cần API) ============== */
+function phanTichMauAnh(file){
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const size = 60;
+        canvas.width = size; canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, size, size);
+        const data = ctx.getImageData(0,0,size,size).data;
+        let r=0,g=0,b=0,count=0;
+        for(let i=0;i<data.length;i+=4){
+          r+=data[i]; g+=data[i+1]; b+=data[i+2]; count++;
+        }
+        r=Math.round(r/count); g=Math.round(g/count); b=Math.round(b/count);
+        resolve({r,g,b, dataUrl:e.target.result});
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function rgbToHex(r,g,b){
+  return '#' + [r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+
+function goiYMauPhoi({r,g,b}){
+  const compHex = rgbToHex(255-r, 255-g, 255-b);
+  const baseHex = rgbToHex(r,g,b);
+  let tenMau = 'trung tính';
+  if(r>g && r>b) tenMau = 'tông ấm (đỏ/cam/hồng)';
+  else if(g>r && g>b) tenMau = 'tông xanh lá/olive';
+  else if(b>r && b>g) tenMau = 'tông xanh dương/lạnh';
+  else if(r>200 && g>200 && b>200) tenMau = 'tông sáng/trung tính';
+  else if(r<80 && g<80 && b<80) tenMau = 'tông tối/đậm';
+
+  let goiY;
+  if(tenMau.includes('ấm')) goiY = 'Bạn có thể phối thêm phụ kiện tông xanh ngọc hoặc be trung tính để cân bằng, tránh chọn thêm màu đỏ/cam đậm gây rối mắt.';
+  else if(tenMau.includes('xanh lá')) goiY = 'Phối thêm tông đất nung hoặc vàng đồng sẽ làm nổi bật outfit mà không bị chìm màu.';
+  else if(tenMau.includes('xanh dương')) goiY = 'Tông trắng kem hoặc vàng nhạt sẽ làm sáng tổng thể, tránh phối thêm xanh navy đậm cùng lúc.';
+  else if(tenMau.includes('sáng')) goiY = 'Outfit tông sáng rất linh hoạt, có thể nhấn nhá bằng phụ kiện màu đậm như nâu trầm hoặc xanh rêu.';
+  else if(tenMau.includes('tối')) goiY = 'Tông tối nên phối thêm một điểm nhấn sáng (khăn, túi) để tổng thể không bị nặng nề.';
+  else goiY = 'Outfit khá trung tính, có thể thoải mái phối thêm màu nhấn theo sở thích cá nhân.';
+
+  return {baseHex, compHex, tenMau, goiY};
+}
+
+function renderColorAnalysis(dataUrl, analysis){
+  const wrap = document.getElementById('colorAnalysisWrap');
+  wrap.innerHTML = `
+    <div class="product-card" style="margin-top:18px;">
+      <span class="tag">Phân tích ảnh outfit</span>
+      <h3 style="font-size:19px;">Nhận diện tông màu</h3>
+      <div class="swatch-row">
+        <div class="swatch" style="background:${analysis.baseHex}" title="${analysis.baseHex}"></div>
+        <div class="swatch" style="background:${analysis.compHex}" title="Màu gợi ý phối: ${analysis.compHex}"></div>
+      </div>
+      <div class="desc">Tông màu chủ đạo: <strong>${analysis.tenMau}</strong>.<br>${analysis.goiY}</div>
+    </div>
+  `;
+}
+
+/* ============== AI DẪN DẮT HỘI THOẠI TỰ DO ==============
+   Không còn kịch bản hỏi cố định. Mỗi lượt gửi: (1) toàn bộ lịch sử hội thoại gần đây,
+   (2) state hiện tại của khách, (3) schema JSON bắt buộc. AI tự quyết định hỏi gì tiếp
+   theo, tự trích xuất field, và tự báo khi đã đủ dữ kiện để chốt gợi ý trang phục. */
+
+function xayDungPromptAI(){
+  const lichSu = convHistory.slice(-16)
+    .map(m => (m.role === 'user' ? 'Khách' : 'Trợ lý') + ': ' + m.content)
+    .join('\n');
+
+  const trangThaiHienTai = JSON.stringify({
+    gioiTinh: state.gioiTinh, loai: state.loai, cao: state.cao, nang: state.nang,
+    mua: state.mua, mau: state.mau, phongCach: state.phongCach,
+    nganSach: state.nganSach, soThich: state.soThich
+  });
+
+  return `Bạn là trợ lý AI tư vấn thời trang tên "Thước Lụa", trò chuyện tự nhiên, thân thiện, ngắn gọn như một stylist thật đang nhắn tin với khách — không hỏi dồn dập nhiều câu một lúc, không liệt kê như biểu mẫu.
+
+QUY TẮC BẮT BUỘC — chỉ được trả lời bằng ĐÚNG MỘT đối tượng JSON hợp lệ, không kèm markdown, không có dấu backtick, không có chữ nào trước hoặc sau JSON, đúng schema sau:
+{
+  "reply": string,
+  "state_update": {
+    "gioiTinh": "nam" | "nu" | null,
+    "loai": "ao_dai" | "ao_thun" | "so_mi" | "dam" | "quan_jeans" | "chan_vay" | "ao_khoac" | null,
+    "cao": number | null,
+    "nang": number | null,
+    "mua": "xuan_he" | "thu_dong" | null,
+    "mau": "sang" | "toi" | "pastel" | "ruc_ro" | "dat" | null,
+    "phongCach": "basic" | "cong_so" | "dao_pho" | "nang_dong" | null,
+    "nganSach": "duoi300" | "tu300den600" | "tren600" | null,
+    "soThich": "vua" | "rong" | null
+  },
+  "goi_y": string[],
+  "san_sang_goi_y": boolean
+}
+
+Giải thích các nhóm giá trị:
+- mau: sang = trắng/be/sáng nền nã, toi = đen/tối giản/navy, pastel = pastel ngọt ngào, ruc_ro = rực rỡ nổi bật, dat = tông đất/nâu ấm áp.
+- nganSach: duoi300 = dưới 300.000đ, tu300den600 = 300.000–600.000đ, tren600 = trên 600.000đ. Tự quy đổi từ số tiền khách nói.
+- cao tính bằng cm, nang tính bằng kg — chỉ điền khi khách nói rõ, không suy đoán.
+- Chỉ điền field nào bạn CHẮC CHẮN suy ra được từ tin nhắn khách (kể cả suy ra từ ngữ cảnh các lượt trước), field chưa rõ để null — không tự bịa giá trị.
+- Ràng buộc: áo dài / đầm / chân váy chỉ dành cho nữ trong demo này. Nếu khách nam chọn 1 trong 3 loại đó, giải thích trong "reply" rằng demo chưa có, gợi ý loại khác phù hợp, để loai=null.
+- "goi_y": 0 đến 4 gợi ý trả lời ngắn (mỗi cái vài từ) để khách bấm nhanh thay vì gõ tay, phù hợp với câu hỏi bạn vừa đặt ra trong "reply". Để mảng rỗng nếu không cần thiết (ví dụ khi đã chốt gợi ý xong).
+- "san_sang_goi_y": chỉ đặt true khi đã thu thập đủ CẢ 6 thông tin bắt buộc: gioiTinh, loai, mua, mau, phongCach, nganSach (cao/nang/soThich không bắt buộc). Khi vừa đủ và khách không có yêu cầu gì thêm, hãy đặt true và viết "reply" thành lời tư vấn phối đồ ngắn gọn (3-4 câu), giải thích tự nhiên vì sao phù hợp với khách dựa trên toàn bộ thông tin đã có.
+- Nếu khách quay lại đổi ý (đổi màu, đổi loại đồ, đổi ngân sách...) sau khi đã chốt, cập nhật state_update tương ứng và đặt san_sang_goi_y=true lại để chốt gợi ý mới.
+- Nếu khách hỏi điều gì đó không liên quan tới việc thu thập thông tin (hỏi kiến thức thời trang chung, hỏi cách phối đồ, v.v.), vẫn trả lời hữu ích, tự nhiên trong "reply", để state_update toàn null, và san_sang_goi_y giữ theo đúng trạng thái đã đủ hay chưa (không tự đặt true nếu 6 field bắt buộc chưa đủ, không tự đặt false nếu trước đó đã đủ và không có gì thay đổi).
+
+THÔNG TIN ĐÃ BIẾT VỀ KHÁCH (state hiện tại — giữ nguyên field nào khách không nhắc lại):
+${trangThaiHienTai}
+
+LỊCH SỬ HỘI THOẠI GẦN NHẤT:
+${lichSu}
+
+Hãy trả lời cho tin nhắn MỚI NHẤT của khách ở trên, đúng theo schema JSON.`;
+}
+
+function parseAIJson(raw){
+  if(!raw) return null;
+  let text = raw.trim();
+  // gỡ code fence nếu AI lỡ bọc ```json ... ```
+  text = text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '').trim();
+  // nếu có chữ thừa trước/sau JSON, cố lấy phần từ dấu { đầu tiên tới } cuối cùng
+  const start = text.indexOf('{');
+  const end = text.lastIndexOf('}');
+  if(start === -1 || end === -1 || end < start) return null;
+  text = text.slice(start, end + 1);
+  try{
+    return JSON.parse(text);
+  }catch(err){
+    console.warn('Không parse được JSON từ AI:', err, raw);
+    return null;
+  }
+}
+
+function capNhatStateTuAI(stateUpdate){
+  if(!stateUpdate || typeof stateUpdate !== 'object') return;
+  const gtMoi = stateUpdate.gioiTinh || state.gioiTinh;
+  Object.keys(DEFAULT_STATE).forEach(key => {
+    if(key === 'bodyPhoto' || key === 'bodySkin') return; // các field ảnh không do AI cập nhật
+    const v = stateUpdate[key];
+    if(v === null || v === undefined || v === '') return;
+    if(key === 'loai' && LOAI_CHI_NU.includes(v) && gtMoi === 'nam') return; // an toàn: chặn sai giới tính
+    state[key] = v;
+  });
+}
+
+async function goiAITuVan(){
+  sendBtn.disabled = true;
+  textInput.disabled = true;
+  setChips([]);
+  addMsg('Đang suy nghĩ...', 'bot');
+  const thinkingEl = chatWindow.lastElementChild;
+
+  const raw = await hoiAI(xayDungPromptAI());
+  thinkingEl.remove();
+
+  if(!raw){
+    addMsg('Xin lỗi, mình không kết nối được AI lúc này (có thể do vượt hạn mức miễn phí/phút, hoặc server đang khởi động lại). Bạn thử nhắn lại sau vài giây nhé.', 'bot');
+    sendBtn.disabled = false;
+    textInput.disabled = false;
+    return;
+  }
+
+  const parsed = parseAIJson(raw);
+
+  if(!parsed){
+    // AI trả lời không đúng JSON như yêu cầu -> vẫn hiển thị nguyên văn để không mất câu trả lời
+    addMsg(raw, 'bot');
+    convHistory.push({role:'assistant', content: raw});
+    sendBtn.disabled = false;
+    textInput.disabled = false;
+    return;
+  }
+
+  capNhatStateTuAI(parsed.state_update);
+  updateFittingCard();
+
+  const loiTraLoi = parsed.reply || '...';
+  addMsg(loiTraLoi, 'bot');
+  convHistory.push({role:'assistant', content: loiTraLoi});
+
+  if(Array.isArray(parsed.goi_y) && parsed.goi_y.length){
+    setChips(parsed.goi_y.slice(0,4).map(g => ({label: g, value: g})));
+  }
+
+  if(parsed.san_sang_goi_y){
+    const outfit = phoiDo();
+    if(outfit.length){
+      renderProductCard(outfit);
+    }
+  }
+
+  sendBtn.disabled = false;
+  textInput.disabled = false;
+  textInput.focus();
+}
+
+function handleUserInput(text){
+  const v = (text || '').trim();
+  if(!v) return;
+  addMsg(v, 'user');
+  convHistory.push({role:'user', content: v});
+  goiAITuVan();
+}
+
+// Gửi một sự kiện "ngầm" cho AI biết (vd vừa tải ảnh lên) mà không hiện thêm bong bóng chat chữ,
+// vì ảnh đã được hiển thị riêng qua addImgMsg().
+function guiSuKienChoAI(text){
+  convHistory.push({role:'user', content: text});
+  goiAITuVan();
+}
+
+/* ============== RESET ============== */
+async function resetAll(){
+  // Mỗi lần bắt đầu lại, thử nạp sản phẩm mới nhất từ Supabase (nếu đã cấu hình).
+  const tuDB = await taiSanPhamTuDB();
+  PRODUCTS = tuDB || PRODUCTS_FALLBACK;
+
+  state = {...DEFAULT_STATE};
+  currentOutfit = [];
+  convHistory = [];
+  chatWindow.innerHTML = '';
+  quickChips.innerHTML = '';
+  document.getElementById('productCardWrap').innerHTML = '';
+  document.getElementById('bodyShapeWrap').innerHTML = '';
+  document.getElementById('colorAnalysisWrap').innerHTML = '';
+  imgInput.value = '';
+  bodyImgInput.value = '';
+  updateFittingCard();
+
+  const loiChao = 'Chào bạn! Mình là trợ lý tư vấn của Thước Lụa. Bạn cứ nhắn tự nhiên như đang nhắn với một stylist thật — ví dụ "mình cần áo dài đi tiệc mùa hè, ngân sách khoảng 500k" — mình sẽ hỏi thêm những gì còn thiếu. Bạn cũng có thể tải ảnh dáng người bất cứ lúc nào để mình minh hoạ outfit theo đúng bạn.';
+  addMsg(loiChao, 'bot');
+  convHistory.push({role:'assistant', content: loiChao});
+}
+
+/* ============== EVENTS ============== */
+sendBtn.onclick = () => {
+  const v = textInput.value.trim();
+  if(!v) return;
+  textInput.value = '';
+  handleUserInput(v);
+};
+textInput.addEventListener('keydown', (e) => {
+  if(e.key === 'Enter'){ sendBtn.click(); }
+});
+
+imgInput.addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if(!file) return;
+  const {r,g,b,dataUrl} = await phanTichMauAnh(file);
+  addImgMsg(dataUrl);
+  const analysis = goiYMauPhoi({r,g,b});
+  renderColorAnalysis(dataUrl, analysis);
+  guiSuKienChoAI(`[Khách vừa tải lên ảnh outfit hiện tại của mình. Tông màu chủ đạo nhận diện được qua ảnh là: ${analysis.tenMau}. Hãy nhắc tới điều này một cách tự nhiên trong câu trả lời tiếp theo nếu phù hợp.]`);
+});
+
+bodyImgInput.addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if(!file) return;
+  const {r,g,b,dataUrl} = await phanTichMauAnh(file);
+  state.bodyPhoto = dataUrl;
+  state.bodySkin = {r,g,b};
+  addImgMsg(dataUrl);
+  renderBodyShapeBox();
+  guiSuKienChoAI('[Khách vừa tải lên ảnh dáng người toàn thân của mình để dùng cho minh hoạ outfit sau này. Hãy xác nhận đã nhận ảnh rồi tiếp tục hỏi những gì còn thiếu.]');
+});
+
+resetBtn.onclick = () => {
+  if(confirm('Bắt đầu lại từ đầu? Toàn bộ thông tin và ảnh đã nhập sẽ bị xoá.')){
+    resetAll();
+  }
+};
+
+/* ============== KHỞI ĐỘNG ============== */
+resetAll();
+</script>
+
+</body>
+</html>
